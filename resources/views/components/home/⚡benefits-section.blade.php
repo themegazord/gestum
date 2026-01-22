@@ -49,7 +49,7 @@ new class extends Component {
                     <div class="flex flex-col gap-3 border-t border-base-300/50 pt-6">
                         @foreach ($benefit['points'] as $point)
                             <div class="flex items-center gap-3">
-                                <x-icon name="o-check-circle" class="h-5 w-5 flex-shrink-0 text-primary" />
+                                <x-icon name="o-check-circle" class="h-5 w-5 shrink-0 text-primary" />
                                 <span class="text-sm text-base-content/80">{{ $point }}</span>
                             </div>
                         @endforeach
