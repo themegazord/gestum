@@ -9,5 +9,8 @@
 </head>
 <body>
     {{ $slot }}
+
+    {{-- Toast notifications --}}
+    <x-toast />
 </body>
 </html>

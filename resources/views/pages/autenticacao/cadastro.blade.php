@@ -3,6 +3,7 @@
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mary\Traits\Toast;
 
@@ -27,7 +28,7 @@ new class extends Component {
     public string $confirmPassword = '';
 
     public bool $acceptTerms = false;
-    public bool $success = false;
+    public bool $showSuccess = false;
 
     public function signup(): void
     {
@@ -39,26 +40,25 @@ new class extends Component {
         $this->validate();
 
         // Criar usuário
-        $user = User::create([
+        $user = User::query()->create([
             'name' => $this->fullName,
             'email' => $this->email,
-            'password' => Hash::make($this->password),
+            'password' => $this->password,
         ]);
 
         // Fazer login automaticamente
         Auth::login($user);
 
-        $this->success = true;
+        $this->showSuccess = true;
 
         $this->success('Cadastro realizado com sucesso!', 'Redirecionando para o dashboard...');
 
-        // Redirecionar após 2 segundos
         $this->dispatch('redirect-dashboard');
     }
 
     public function resetSuccess(): void
     {
-        $this->success = false;
+        $this->showSuccess = false;
     }
 
     public function signupWithGoogle(): void
@@ -116,7 +116,7 @@ new class extends Component {
 
         {{-- Card de Cadastro --}}
         <x-card class="shadow-2xl border-base-300">
-            @if ($success)
+            @if ($showSuccess)
                 {{-- Success Message --}}
                 <div class="space-y-4 text-center py-4">
                     <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success/20">
