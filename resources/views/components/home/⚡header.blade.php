@@ -31,7 +31,7 @@ new class extends Component {
         </div>
 
         <div class="hidden gap-3 md:flex">
-            <x-button class="btn-sm btn-outline" label="Entrar" />
+            <x-button class="btn-sm btn-outline" label="Entrar" link="/login"/>
             <x-button class="btn-primary hover:btn-primary/90 btn-sm" label="Começar Grátis" />
         </div>
 
@@ -52,7 +52,7 @@ new class extends Component {
                     Benefícios
                 </a>
                 <div class="flex flex-col gap-2 border-t border-border/50 pt-4">
-                    <x-button class="w-full btn-outline btn-sm" label="Entrar"/>
+                    <x-button class="w-full btn-outline btn-sm" label="Entrar" link="/login"/>
                     <x-button size="sm" class="btn-sm w-full btn-primary hover:btn-primary/90" label="Começar Grátis"/>
                 </div>
             </div>
