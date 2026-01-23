@@ -3,6 +3,7 @@
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\Layout;
+use Illuminate\Support\Facades\Auth;
 use Mary\Traits\Toast;
 
 new class extends Component {
@@ -16,17 +17,16 @@ new class extends Component {
 
     public bool $remember = false;
 
-    public function login(): void
+    public function login()
     {
         $this->validate();
 
-        // Tentar autenticar
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             session()->regenerate();
 
             $this->success('Login realizado com sucesso!');
 
-            // return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard');
         }
 
         $this->error('Credenciais inválidas. Verifique seu email e senha.');
