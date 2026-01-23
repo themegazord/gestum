@@ -56,6 +56,7 @@
                     <x-menu-item title="Receitas fixas" icon="o-plus-circle" link="####" />
                     <x-menu-item title="Despesas fixas" icon="o-minus-circle" link="####" />
                 </x-menu-sub>
+
                 <x-menu-sub title="Relatórios" icon="o-document-chart-bar">
                     <x-menu-item title="DRE" icon="o-table-cells" link="####" />
                     <x-menu-item title="Extrato" icon="o-document-text" link="####" />
@@ -63,14 +64,12 @@
                     <x-menu-item title="Por período" icon="o-calendar-days" link="####" />
                 </x-menu-sub>
 
-
                 <x-menu-sub title="Cadastros" icon="o-folder-open">
                     <x-menu-item title="Categorias" icon="o-tag" link="####" />
                     <x-menu-item title="Clientes" icon="o-users" link="####" />
                     <x-menu-item title="Fornecedores" icon="o-truck" link="####" />
                     <x-menu-item title="Centros de custo" icon="o-building-office" link="####" />
                 </x-menu-sub>
-
 
                 <x-menu-sub title="Planejamento" icon="o-light-bulb">
                     <x-menu-item title="Orçamento" icon="o-calculator" link="####" />
