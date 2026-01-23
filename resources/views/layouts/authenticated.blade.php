@@ -77,13 +77,6 @@
                     <x-menu-item title="Metas" icon="o-flag" link="####" />
                 </x-menu-sub>
 
-
-                <x-menu-sub title="Configurações" icon="o-cog-6-tooth">
-                    <x-menu-item title="Usuários" icon="o-user-group" link="####" />
-                    <x-menu-item title="Empresa" icon="o-building-office-2" link="####" />
-                    <x-menu-item title="Importar dados" icon="o-arrow-up-tray" link="####" />
-                </x-menu-sub>
-
                 <x-menu-item title="Bancos" icon="o-building-library" />
                 <x-menu-item title="Transferências" icon="o-arrows-right-left" link="####" />
                 <x-menu-item title="Cartões de crédito" icon="o-credit-card" link="####" />
