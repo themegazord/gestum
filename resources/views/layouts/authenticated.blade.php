@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="lemonade">
 
 <head>
     <meta charset="utf-8">
@@ -76,7 +76,7 @@
                     <x-menu-item title="Metas" icon="o-flag" link="####" />
                 </x-menu-sub>
 
-                <x-menu-item title="Bancos" icon="o-building-library" />
+                <x-menu-item title="Bancos" icon="o-building-library" link="bancos/"/>
                 <x-menu-item title="Transferências" icon="o-arrows-right-left" link="####" />
                 <x-menu-item title="Cartões de crédito" icon="o-credit-card" link="####" />
                 <x-menu-item title="Fluxo de caixa" icon="o-chart-bar" link="####" />
