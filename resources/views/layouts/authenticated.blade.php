@@ -66,9 +66,6 @@
 
                 <x-menu-sub title="Cadastros" icon="o-folder-open">
                     <x-menu-item title="Categorias" icon="o-tag" link="####" />
-                    <x-menu-item title="Clientes" icon="o-users" link="####" />
-                    <x-menu-item title="Fornecedores" icon="o-truck" link="####" />
-                    <x-menu-item title="Centros de custo" icon="o-building-office" link="####" />
                 </x-menu-sub>
 
                 <x-menu-sub title="Planejamento" icon="o-light-bulb">
@@ -76,28 +73,33 @@
                     <x-menu-item title="Metas" icon="o-flag" link="####" />
                 </x-menu-sub>
 
-                @can ('is-admin')
+                <x-menu-sub title="Contas bancárias" icon="o-building-library">
+                    <x-menu-item title="Bancos" icon="o-building-office-2"
+                        link="{{ route('autenticado.contas-bancarias.bancos') }}" />
+                    <x-menu-item title="Contas" icon="o-wallet" link="####" />
+                    <x-menu-item title="Transferências" icon="o-arrows-right-left" link="####" />
+                    <x-menu-item title="Cartões de crédito" icon="o-credit-card" link="####" />
+                </x-menu-sub>
+
+                @can('is-admin')
                     <x-menu-sub title="Administração" icon="o-cog">
                         <x-menu-item title="Solicitações de bancos" icon="o-inbox-stack"
                             link="{{ route('autenticado.admin.solicitacoes-bancos') }}" />
                         <x-menu-item title="Permissões" icon="o-shield-check" link="/admin/permissoes" />
                         <x-menu-item title="Usuários" icon="o-users" link="/admin/usuarios" />
                     </x-menu-sub>
-                @endif
-
-                <x-menu-item title="Bancos" icon="o-building-library" link="{{ route('autenticado.bancos.listagem') }}" />
-                <x-menu-item title="Transferências" icon="o-arrows-right-left" link="####" />
-                <x-menu-item title="Cartões de crédito" icon="o-credit-card" link="####" />
-                <x-menu-item title="Fluxo de caixa" icon="o-chart-bar" link="####" />
-            </x-menu>
-        </x-slot:sidebar>
+                @endcan
 
 
-        <x-slot:content>
-            {{ $slot }}
-        </x-slot:content>
-    </x-main>
-    <x-toast />
-</body>
+                </x-menu>
+            </x-slot:sidebar>
 
-</html>
+
+            <x-slot:content>
+                {{ $slot }}
+            </x-slot:content>
+        </x-main>
+        <x-toast />
+    </body>
+
+    </html>
