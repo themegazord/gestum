@@ -16,10 +16,12 @@ class SolicitacaoBancoNovo extends Model
         'user_id',
         'nome',
         'codigo',
-        'observacao'
+        'observacao',
+        'decisao',
+        'motivo_decisao'
     ];
 
     public function solicitante(): BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
