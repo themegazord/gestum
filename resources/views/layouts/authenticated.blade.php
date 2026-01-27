@@ -76,7 +76,16 @@
                     <x-menu-item title="Metas" icon="o-flag" link="####" />
                 </x-menu-sub>
 
-                <x-menu-item title="Bancos" icon="o-building-library" link="bancos/"/>
+                @can ('is-admin')
+                    <x-menu-sub title="Administração" icon="o-cog">
+                        <x-menu-item title="Solicitações de bancos" icon="o-inbox-stack"
+                            link="/admin/solicitacoes-bancos" />
+                        <x-menu-item title="Permissões" icon="o-shield-check" link="/admin/permissoes" />
+                        <x-menu-item title="Usuários" icon="o-users" link="/admin/usuarios" />
+                    </x-menu-sub>
+                @endif
+
+                <x-menu-item title="Bancos" icon="o-building-library" link="bancos/" />
                 <x-menu-item title="Transferências" icon="o-arrows-right-left" link="####" />
                 <x-menu-item title="Cartões de crédito" icon="o-credit-card" link="####" />
                 <x-menu-item title="Fluxo de caixa" icon="o-chart-bar" link="####" />

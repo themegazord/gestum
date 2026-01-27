@@ -9,3 +9,6 @@ Route::livewire('/dashboard', 'pages::autenticado.dashboard')->name('autenticado
 Route::prefix('bancos')->group(function () {
     Route::livewire('/', 'pages::autenticado.bancos.listagem')->name('autenticacado.bancos.listagem');
 });
+Route::prefix('admin')->middleware('can:is-admin')->group(function () {
+    // rotas para admin
+});
