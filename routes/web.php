@@ -7,7 +7,10 @@ Route::livewire('/login', 'pages::autenticacao.login')->name('autenticacao.login
 Route::livewire('/cadastro', 'pages::autenticacao.cadastro')->name('autenticacao.cadastro');
 Route::livewire('/dashboard', 'pages::autenticado.dashboard')->name('autenticado.dashboard');
 Route::prefix('contas-bancarias')->group(function () {
-    Route::livewire('bancos', 'pages::autenticado.bancos.listagem')->name('autenticado.contas-bancarias.bancos');
+    Route::livewire('bancos', 'pages::autenticado.contas-bancarias.bancos.listagem')->name('autenticado.contas-bancarias.bancos');
+    Route::prefix('contas')->group(function () {
+       Route::livewire('cadastro', 'pages::autenticado.contas-bancarias.contas.cadastro')->name('autenticado.contas-bancarias.contas.cadastro');
+    });
 });
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {
     Route::livewire('/solicitacoes-bancos', 'pages::autenticado.admin.solicitacoes-bancos')->name('autenticado.admin.solicitacoes-bancos');

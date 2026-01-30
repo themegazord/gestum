@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Forms\Bancos;
+namespace App\Livewire\Forms\ContasBancarias\Bancos;
 
 use Livewire\Form;
 

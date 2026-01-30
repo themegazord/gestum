@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Forms\Bancos\SolicitacaoCadastroBancoNovo;
+use App\Livewire\Forms\ContasBancarias\Bancos\SolicitacaoCadastroBancoNovo;
 use App\Models\SolicitacaoBancoNovo;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Banco extends Model
 {
@@ -13,4 +14,8 @@ class Banco extends Model
         'nome',
         'codigo',
     ];
+
+    public function contasBancaria(): HasMany {
+        return $this->hasMany(ContaBancaria::class, 'banco_id');
+    }
 }
