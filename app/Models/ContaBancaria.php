@@ -31,11 +31,18 @@ class ContaBancaria extends Model
         ];
     }
 
-    public function banco(): BelongsTo {
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->withTrashed()->where($field ?? 'id', $value)->firstOrFail();
+    }
+
+    public function banco(): BelongsTo
+    {
         return $this->belongsTo(Banco::class, 'banco_id');
     }
 
-    public function proprietario(): BelongsTo {
+    public function proprietario(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 }
