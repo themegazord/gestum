@@ -15,16 +15,18 @@ new class extends Component {
     public ?Collection $bancos = null;
     public array $tiposConta = [];
     public CadastroContaBancariaForm $conta;
+    public ContaBancaria $contaBancaria;
 
-    public function mount(): void
+    public function mount(ContaBancaria $contaBancaria): void
     {
         $this->tiposConta = TipoContaBancaria::options();
+        $this->conta->fill($contaBancaria->toArray());
         $this->search();
     }
 
     public function render()
     {
-        return $this->view()->layout('layouts.authenticated')->title('Cadastro - Contas');
+        return $this->view()->layout('layouts.authenticated')->title('Edição - Contas');
     }
 
     public function search(string $value = ''): void
@@ -39,28 +41,21 @@ new class extends Component {
             ->merge($bancoSelecionado);
     }
 
-    public function cadastrar(): void
+    public function edicao(): void
     {
         $dadosValidados = $this->validate();
 
-        if (!$dadosValidados['saldo_atual']) {
-            $dadosValidados['saldo_atual'] = $dadosValidados['saldo_inicial'];
-        }
+        $this->contaBancaria->update($dadosValidados);
 
-        ContaBancaria::query()->create([
-            'user_id' => Auth::id(),
-            ...$dadosValidados,
-        ]);
-
-        $this->success('Cadastro de conta bancária.', 'Conta bancária cadastrada com sucesso', redirectTo: route('autenticado.contas-bancarias.contas.listagem'));
+        $this->success('Edição de conta bancária.', 'Conta bancária editada com sucesso', redirectTo: route('autenticado.contas-bancarias.contas.listagem'));
     }
 };
 
 ?>
 
 <div class="container">
-    <x-header title="Cadastro de contas bancárias"
+    <x-header title="Edição de contas bancárias"
         subtitle="Defina os dados da conta bancária que vai receber as transações de contas a pagar e as transações de contas a receber" />
-    <x-autenticado.contas-bancarias.form-conta :bancos="$bancos" :tiposConta="$tiposConta" submitLabel="Cadastrar"
-        submitAction="cadastrar" />
+    <x-autenticado.contas-bancarias.form-conta :bancos="$bancos" :tiposConta="$tiposConta" submitLabel="Editar"
+        submitAction="edicao" />
 </div>

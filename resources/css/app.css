@@ -44,3 +44,13 @@
 [x-cloak] {
     display: none !important;
 }
+
+table {
+    @apply !static
+}
+
+/** This is the dropdown component inside the table **/
+/** Make sure to handle it properly if you are using other floating element **/
+table details.dropdown {
+    @apply !static
+}

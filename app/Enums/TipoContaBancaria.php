@@ -19,6 +19,16 @@ enum TipoContaBancaria: string
         };
     }
 
+    public function color(): string
+    {
+        return match ($this) {
+            self::CORRENTE => 'badge-primary',
+            self::POUPANCA => 'badge-success',
+            self::SALARIO => 'badge-warning',
+            self::PAGAMENTO => 'badge-info',
+        };
+    }
+
     public static function options(): array
     {
         return collect(self::cases())->map(fn($case) => [
