@@ -3,6 +3,7 @@
 use App\Models\ContaBancaria;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
@@ -11,6 +12,7 @@ new class extends Component {
 
     public ?Collection $contas = null;
     public array $headers = [['key' => 'nome', 'label' => 'Nome da conta'], ['key' => 'tipo', 'label' => 'Tipo da conta'], ['key' => 'saldo_atual', 'label' => 'Saldo atual da conta'], ['key' => 'deleted_at', 'label' => 'Está conta está ativa?']];
+
     public function mount(): void
     {
         $this->carregarContas();
@@ -30,7 +32,8 @@ new class extends Component {
         $this->success('Atualização de conta bancária', 'Status da conta bancária atualizada com sucesso');
     }
 
-    private function carregarContas(): void
+    #[On('conta-excluida')]
+    public function carregarContas(): void
     {
         $this->contas = ContaBancaria::withTrashed()->where('user_id', Auth::id())->get();
     }
@@ -68,8 +71,11 @@ new class extends Component {
             <x-menu-item title="{{ $conta->trashed() ? 'Ativar conta' : 'Inativar conta' }}"
                 icon="{{ $conta->trashed() ? 'o-eye' : 'o-eye-slash' }}" wire:click.stop="alteraStatusConta('{{ $conta->id }}')" spinner="alteraStatusConta" />
             <x-menu-item title="Editar conta" icon="o-pencil-square" link="{{ route('autenticado.contas-bancarias.contas.edicao', ['contaBancaria' => $conta->id]) }}" />
-            <x-menu-item title="Remover conta" icon="o-trash" />
+            <x-menu-item title="Remover conta" icon="o-trash"
+                wire:click.stop="$dispatch('abre-modal-confirmacao-exclusao-conta', { conta_id: '{{ $conta->id }}' })" />
         </x-dropdown>
         @endscope
     </x-table>
+
+    <livewire:autenticado.contas-bancarias.modal-confirmacao-exclusao />
 </div>
