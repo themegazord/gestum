@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TipoCategoria;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,13 @@ class Categoria extends Model
         'tipo',
         'cor',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'tipo' => TipoCategoria::class,
+        ];
+    }
 
     public function categoriaPai(): BelongsTo {
         return $this->belongsTo(Categoria::class, 'categoria_pai_id');

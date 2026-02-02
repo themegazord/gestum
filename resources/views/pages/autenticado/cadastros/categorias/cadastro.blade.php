@@ -35,7 +35,7 @@ new class extends Component {
             \App\Models\Categoria::query()->create($this->categoria->all());
         });
 
-        $this->success(title: "Cadastro de Categoria", description: "Categoria cadastrada com sucesso");
+        $this->success(title: "Cadastro de Categoria", description: "Categoria cadastrada com sucesso", redirectTo: route('autenticado.cadastros.categorias.listagem'));
     }
 };
 

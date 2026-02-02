@@ -16,6 +16,7 @@ Route::prefix('contas-bancarias')->group(function () {
 });
 Route::prefix('cadastros')->group(function () {
     Route::prefix('categorias')->group(function () {
+        Route::livewire('/', 'pages::autenticado.cadastros.categorias.listagem')->name('autenticado.cadastros.categorias.listagem');
         Route::livewire('/cadastro', 'pages::autenticado.cadastros.categorias.cadastro')->name('autenticado.cadastros.categorias.cadastro');
     });
 });

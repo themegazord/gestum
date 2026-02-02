@@ -17,7 +17,7 @@
     </div>
 
     <x-slot:actions>
-        <x-button label="Cancelar" icon="o-arrow-left" class="btn-error"/>
+        <x-button label="Cancelar" icon="o-arrow-left" class="btn-error" link="{{ route('autenticado.cadastros.categorias.listagem') }}"/>
         <x-button label="{{ $submitLabel }}" icon="o-check" class="btn-success" type="submit" spinner="{{ $submitType }}"/>
     </x-slot:actions>
 

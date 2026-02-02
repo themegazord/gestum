@@ -67,7 +67,7 @@
           </x-menu-sub>
 
           <x-menu-sub title="Cadastros" icon="o-folder-open">
-            <x-menu-item title="Categorias" icon="o-tag" link="####" />
+            <x-menu-item title="Categorias" icon="o-tag" link="{{ route('autenticado.cadastros.categorias.listagem') }}" />
           </x-menu-sub>
 
           <x-menu-sub title="Planejamento" icon="o-light-bulb">
