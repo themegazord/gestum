@@ -42,4 +42,8 @@ class Categoria extends Model
     public function criador(): BelongsTo {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function lancamentos(): HasMany {
+        return $this->hasMany(Lancamento::class, 'categoria_id');
+    }
 }

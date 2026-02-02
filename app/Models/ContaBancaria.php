@@ -46,4 +46,8 @@ class ContaBancaria extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function lancamentos(): HasMany {
+        return $this->hasMany(Lancamento::class, 'categoria_id');
+    }
 }
