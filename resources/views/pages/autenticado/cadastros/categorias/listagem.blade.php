@@ -29,11 +29,25 @@ new class extends Component {
     #[\Livewire\Attributes\Computed]
     public function categorias(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        return \App\Models\Categoria::query()
+        return \App\Models\Categoria::withTrashed()
             ->where('categorias.user_id', \Illuminate\Support\Facades\Auth::id())
             ->when($this->pesquisa, fn($q) => $q->where('categorias.nome', 'like', "%{$this->pesquisa}%"))
             ->orderBy(...array_values($this->sortBy))
             ->paginate($this->perPage);
+    }
+
+    public function alterarStatus(string $categoria_id): void {
+        $categoria = \App\Models\Categoria::withTrashed()->find($categoria_id);
+
+        if (!$categoria) {
+            $this->categorias();
+            $this->error('Erro de atualização', 'Categoria não identificada');
+        }
+
+        $categoria->trashed() ? $categoria->restore() : $categoria->delete();
+
+        $this->success('Atualização de categoria', 'Categoria ' . ($categoria->trashed() ? 'inativada' : 'ativada') . ' com sucesso');
+        $this->categorias();
     }
 }
 
@@ -63,7 +77,7 @@ new class extends Component {
         @scope('actions', $categoria)
         <x-dropdown>
             <x-menu-item label="{{ $categoria->trashed() ? 'Ativar categoria' : 'Inativar categoria' }}"
-                         icon="{{ $categoria->trashed() ? 'o-eye' : 'o-eye-slash' }}" />
+                         icon="{{ $categoria->trashed() ? 'o-eye' : 'o-eye-slash' }}" wire:click="alterarStatus('{{ $categoria->id }}')"/>
                 <x-menu-item label="Editar categoria" icon="o-pencil-square" link="{{ route('autenticado.cadastros.categorias.edicao', ['categoriaAtual' => $categoria->id]) }}"/>
                 <x-menu-item label="Remover categoria" icon="o-trash"/>
             </x-dropdown>
