@@ -18,6 +18,7 @@ Route::prefix('cadastros')->group(function () {
     Route::prefix('categorias')->group(function () {
         Route::livewire('/', 'pages::autenticado.cadastros.categorias.listagem')->name('autenticado.cadastros.categorias.listagem');
         Route::livewire('/cadastro', 'pages::autenticado.cadastros.categorias.cadastro')->name('autenticado.cadastros.categorias.cadastro');
+        Route::livewire('/{categoriaAtual}', 'pages::autenticado.cadastros.categorias.edicao')->name('autenticado.cadastros.categorias.edicao');
     });
 });
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {

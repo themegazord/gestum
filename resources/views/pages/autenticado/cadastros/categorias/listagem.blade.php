@@ -64,7 +64,7 @@ new class extends Component {
         <x-dropdown>
             <x-menu-item label="{{ $categoria->trashed() ? 'Ativar categoria' : 'Inativar categoria' }}"
                          icon="{{ $categoria->trashed() ? 'o-eye' : 'o-eye-slash' }}" />
-                <x-menu-item label="Editar categoria" icon="o-pencil-square"/>
+                <x-menu-item label="Editar categoria" icon="o-pencil-square" link="{{ route('autenticado.cadastros.categorias.edicao', ['categoriaAtual' => $categoria->id]) }}"/>
                 <x-menu-item label="Remover categoria" icon="o-trash"/>
             </x-dropdown>
         @endscope
