@@ -26,6 +26,7 @@ new class extends Component {
         return $this->view()->layout('layouts.authenticated')->title('Listagem - Categorias');
     }
 
+    #[\Livewire\Attributes\On('categoria-excluida')]
     #[\Livewire\Attributes\Computed]
     public function categorias(): \Illuminate\Pagination\LengthAwarePaginator
     {
@@ -79,8 +80,10 @@ new class extends Component {
             <x-menu-item label="{{ $categoria->trashed() ? 'Ativar categoria' : 'Inativar categoria' }}"
                          icon="{{ $categoria->trashed() ? 'o-eye' : 'o-eye-slash' }}" wire:click="alterarStatus('{{ $categoria->id }}')"/>
                 <x-menu-item label="Editar categoria" icon="o-pencil-square" link="{{ route('autenticado.cadastros.categorias.edicao', ['categoriaAtual' => $categoria->id]) }}"/>
-                <x-menu-item label="Remover categoria" icon="o-trash"/>
+                <x-menu-item label="Remover categoria" icon="o-trash" wire:click="$dispatch('abre-modal-confirmacao-exclusao-categoria', { categoria_id: '{{ $categoria->id }}' })"/>
             </x-dropdown>
         @endscope
     </x-table>
+
+    <livewire:autenticado.cadastros.categorias.modal-confirmacao-exclusao />
 </div>
