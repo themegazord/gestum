@@ -14,6 +14,11 @@ Route::prefix('contas-bancarias')->group(function () {
        Route::livewire('/{contaBancaria}', 'pages::autenticado.contas-bancarias.contas.edicao')->name('autenticado.contas-bancarias.contas.edicao');
     });
 });
+Route::prefix('cadastros')->group(function () {
+    Route::prefix('categorias')->group(function () {
+        Route::livewire('/cadastro', 'pages::autenticado.cadastros.categorias.cadastro')->name('autenticado.cadastros.categorias.cadastro');
+    });
+});
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {
     Route::livewire('/solicitacoes-bancos', 'pages::autenticado.admin.solicitacoes-bancos')->name('autenticado.admin.solicitacoes-bancos');
 });

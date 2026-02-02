@@ -63,4 +63,8 @@ class User extends Authenticatable
     {
         return $this->role()->where('role', 'Administrador')->exists();
     }
+
+    public function categorias(): HasMany {
+        return $this->hasMany(Categoria::class, 'user_id');
+    }
 }
