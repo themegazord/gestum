@@ -1,0 +1,83 @@
+<?php
+
+use Illuminate\Support\Collection;
+use Livewire\Component;
+
+new class extends Component {
+    use \Mary\Traits\Toast;
+
+    public array $categorias = [];
+    public Collection $contas;
+    public \App\Livewire\Forms\Lancamentos\UpsertLancamentoForm $lancamento;
+
+    public function mount(): void
+    {
+        $this->contas = \App\Models\ContaBancaria::query()->where('user_id', \Illuminate\Support\Facades\Auth::id())->get();
+        $categorias = \App\Models\Categoria::query()
+            ->where('categorias.user_id', \Illuminate\Support\Facades\Auth::id())
+            ->get();
+
+        $paisComFilhas = $categorias
+            ->whereNotNull('categoria_pai_id')
+            ->pluck('categoria_pai_id')
+            ->unique();
+
+        $categorias->each(function ($categoria) use (&$grouped, $categorias, $paisComFilhas) {
+            $paiId = $categoria->getAttribute('categoria_pai_id');
+
+            if ($paiId) {
+                // É uma filha - agrupa pelo nome do pai
+                $pai = $categorias->firstWhere('id', $paiId);
+                $paiNome = $pai ? $pai->getAttribute('nome') : 'Outros';
+
+                $grouped[$paiNome][] = [
+                    'id' => $categoria->getAttribute('id'),
+                    'name' => $categoria->getAttribute('nome')
+                ];
+            } elseif (!$paisComFilhas->contains($categoria->getAttribute('id'))) {
+                // É raiz e NÃO tem filhas - adiciona como grupo individual
+                $grouped[$categoria->getAttribute('nome')][] = [
+                    'id' => $categoria->getAttribute('id'),
+                    'name' => $categoria->getAttribute('nome')
+                ];
+            }
+        });
+
+        $this->categorias = $grouped;
+
+        $this->lancamento->tipo = 'receita';
+        $this->lancamento->status = 'pendente';
+    }
+
+    public function render()
+    {
+        return $this->view()->layout('layouts.authenticated')->title('Cadastro - Contas a Receber');
+    }
+
+    public function cadastrar(): void
+    {
+        $this->validate();
+        try {
+            \Illuminate\Support\Facades\DB::transaction(function () {
+                \App\Models\Lancamento::query()->create($this->lancamento->all());
+            });
+        } catch (Exception $e) {
+            $this->error('Cadastro de contas a receber', 'Erro ao cadastrar o lançamento, verifique com o administrador');
+            \Illuminate\Support\Facades\Log::error('Erro ao cadastrar o lançamento', [
+                'error' => $e->getMessage(),
+                'data' => $this->lancamento->all()
+            ]);
+        }
+
+        $this->success('Cadastro de contas a receber', 'Lançamento cadastrado com sucesso');
+    }
+}
+
+?>
+
+<div class="container">
+    <x-header title="Cadastro de contas a receber"
+              subtitle="Registre os valores que você tem a receber, definindo vencimentos, categorias e formas de pagamento"/>
+
+    <x-autenticado.lancamentos.form-lancamento :contas="$contas" :categorias="$categorias" submitLabel="Cadastrar" submitType="cadastrar" />
+</div>

@@ -21,6 +21,9 @@ Route::prefix('cadastros')->group(function () {
         Route::livewire('/{categoriaAtual}', 'pages::autenticado.cadastros.categorias.edicao')->name('autenticado.cadastros.categorias.edicao');
     });
 });
+Route::prefix('contas-receber')->group(function () {
+    Route::livewire('/cadastro', 'pages::autenticado.contas-receber.cadastro')->name('autenticado.contas-receber.listagem');
+});
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {
     Route::livewire('/solicitacoes-bancos', 'pages::autenticado.admin.solicitacoes-bancos')->name('autenticado.admin.solicitacoes-bancos');
 });
