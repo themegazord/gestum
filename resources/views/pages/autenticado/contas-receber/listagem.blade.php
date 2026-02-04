@@ -168,8 +168,10 @@ new class extends Component {
             <x-dropdown>
                 <x-menu-item label="Cancelar recebimento" icon="o-trash" />
                 <x-menu-item label="Editar recebimento" icon="o-pencil-square" />
-                <x-menu-item label="Receber" icon="o-currency-dollar" />
+                <x-menu-item label="Receber" icon="o-currency-dollar" wire:click="$dispatch('abrir-modal-baixa-parcial', {lancamento_id: '{{ $lancamento->id }}'})"/>
             </x-dropdown>
         @endscope
     </x-table>
+
+    <livewire:autenticado.lancamentos.baixas.modal-baixa-parcial />
 </div>

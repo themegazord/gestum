@@ -7,6 +7,7 @@ use App\Enums\TipoCategoria;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lancamento extends Model
@@ -40,5 +41,9 @@ class Lancamento extends Model
 
     public function contaBancaria(): BelongsTo {
         return $this->belongsTo(ContaBancaria::class, 'conta_bancaria_id');
+    }
+
+    public function baixasParciais(): HasMany {
+        return $this->hasMany(BaixaParcial::class, 'lancamento_id');
     }
 }

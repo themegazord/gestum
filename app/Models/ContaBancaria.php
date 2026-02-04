@@ -50,4 +50,8 @@ class ContaBancaria extends Model
     public function lancamentos(): HasMany {
         return $this->hasMany(Lancamento::class, 'categoria_id');
     }
+
+    public function baixasParciais(): HasMany {
+        return $this->hasMany(BaixaParcial::class, 'conta_bancaria_id');
+    }
 }
