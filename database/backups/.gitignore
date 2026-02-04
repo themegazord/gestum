@@ -1,0 +1,5 @@
+# Ignorar arquivos de backup
+
+# Manter os scripts
+!backup.sh
+!restore.sh
