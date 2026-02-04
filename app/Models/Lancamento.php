@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\StatusLancamento;
+use App\Enums\TipoCategoria;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +13,7 @@ class Lancamento extends Model
 {
     use HasUuids, SoftDeletes;
     protected $fillable = [
+        'user_id',
         'categoria_id',
         'conta_bancaria_id',
         'fatura_id',
@@ -24,6 +27,11 @@ class Lancamento extends Model
         'status',
         'observacoes',
         'anexo',
+    ];
+
+    public $casts = [
+        'tipo' => TipoCategoria::class,
+        'status' => StatusLancamento::class,
     ];
 
     public function categoria(): BelongsTo {

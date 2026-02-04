@@ -15,7 +15,9 @@ new class extends Component {
         $this->contas = \App\Models\ContaBancaria::query()->where('user_id', \Illuminate\Support\Facades\Auth::id())->get();
         $categorias = \App\Models\Categoria::query()
             ->where('categorias.user_id', \Illuminate\Support\Facades\Auth::id())
+            ->where('categorias.tipo', \App\Enums\TipoCategoria::RECEITA)
             ->get();
+
 
         $paisComFilhas = $categorias
             ->whereNotNull('categoria_pai_id')
@@ -47,6 +49,7 @@ new class extends Component {
 
         $this->lancamento->tipo = 'receita';
         $this->lancamento->status = 'pendente';
+        $this->lancamento->user_id = \Illuminate\Support\Facades\Auth::id();
     }
 
     public function render()
@@ -61,6 +64,8 @@ new class extends Component {
             \Illuminate\Support\Facades\DB::transaction(function () {
                 \App\Models\Lancamento::query()->create($this->lancamento->all());
             });
+
+            $this->success('Cadastro de contas a receber', 'Lançamento cadastrado com sucesso');
         } catch (Exception $e) {
             $this->error('Cadastro de contas a receber', 'Erro ao cadastrar o lançamento, verifique com o administrador');
             \Illuminate\Support\Facades\Log::error('Erro ao cadastrar o lançamento', [
@@ -68,9 +73,8 @@ new class extends Component {
                 'data' => $this->lancamento->all()
             ]);
         }
-
-        $this->success('Cadastro de contas a receber', 'Lançamento cadastrado com sucesso');
     }
+
 }
 
 ?>

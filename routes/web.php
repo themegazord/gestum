@@ -22,7 +22,8 @@ Route::prefix('cadastros')->group(function () {
     });
 });
 Route::prefix('contas-receber')->group(function () {
-    Route::livewire('/cadastro', 'pages::autenticado.contas-receber.cadastro')->name('autenticado.contas-receber.listagem');
+    Route::livewire('/', 'pages::autenticado.contas-receber.listagem')->name('autenticado.contas-receber.listagem');
+    Route::livewire('/cadastro', 'pages::autenticado.contas-receber.cadastro')->name('autenticado.contas-receber.cadastro');
 });
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {
     Route::livewire('/solicitacoes-bancos', 'pages::autenticado.admin.solicitacoes-bancos')->name('autenticado.admin.solicitacoes-bancos');

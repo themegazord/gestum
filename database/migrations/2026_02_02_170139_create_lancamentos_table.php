@@ -12,6 +12,7 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('categoria_id')->constrained('categorias');
             $table->foreignUuid('conta_bancaria_id')->constrained('conta_bancaria');
 

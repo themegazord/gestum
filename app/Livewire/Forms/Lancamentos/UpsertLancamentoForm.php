@@ -8,6 +8,7 @@ use Livewire\Form;
 class UpsertLancamentoForm extends Form
 {
     public ?string $id = null;
+    public ?int $user_id = null;
     public ?string $categoria_id = null;
     public ?string $conta_bancaria_id = null;
     public ?string $fatura_id = null;

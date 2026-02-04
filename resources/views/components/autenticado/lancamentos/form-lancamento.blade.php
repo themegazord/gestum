@@ -10,7 +10,7 @@
     @endphp
     <div class="flex flex-col md:grid md:grid-cols-2 gap-4">
         <x-input label="Descrição" wire:model="lancamento.descricao"/>
-        <x-select :options="App\Enums\StatusLancamento::options()" wire:model="lancamento.status" label="Status" readonly/>
+        <x-select :options="App\Enums\StatusLancamento::options()" wire:model="lancamento.status" label="Status" disabled/>
     </div>
 
     <div class="flex flex-col md:grid md:grid-cols-2 gap-4">
@@ -29,7 +29,7 @@
     </div>
     <x-textarea label="Observações" rows="3" wire:model="lancamento.observacoes"/>
     <x-slot:actions>
-        <x-button label="Voltar" icon="o-arrow-left" class="btn-error"/>
+        <x-button label="Voltar" icon="o-arrow-left" class="btn-error" link="{{ route('autenticado.contas-receber.listagem') }}"/>
         <x-button label="{{ $submitLabel }}" icon="o-plus" class="btn-success" type="submit" spinner="{{ $submitType }}"/>
     </x-slot:actions>
 </x-form>

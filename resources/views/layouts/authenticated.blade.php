@@ -45,7 +45,7 @@
 
           <x-menu-item title="Dashboard" icon="o-sparkles" link="/dashboard" />
           <x-menu-sub title="Contas a receber" icon="o-arrow-trending-up">
-            <x-menu-item title="Recebimentos" icon="o-banknotes" link="####" />
+            <x-menu-item title="Recebimentos" icon="o-banknotes" link="{{ route('autenticado.contas-receber.listagem') }}" />
             <x-menu-item title="Baixas" icon="o-check-circle" link="####" />
           </x-menu-sub>
 
