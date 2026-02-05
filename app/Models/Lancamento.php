@@ -163,17 +163,17 @@ class Lancamento extends Model
 
     public function estaPago(): bool
     {
-        return in_array($this->status, ['pago', 'recebido']);
+        return in_array($this->status->value, ['pago', 'recebido']);
     }
 
     public function estaPendente(): bool
     {
-        return $this->status === 'pendente';
+        return $this->status->value === 'pendente';
     }
 
     public function estaParcial(): bool
     {
-        return $this->status === 'parcial';
+        return $this->status->value === 'parcial';
     }
 
     public function estaAtrasado(): bool

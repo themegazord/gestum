@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 new class extends Component {
@@ -9,10 +10,15 @@ new class extends Component {
     public \App\Models\Lancamento $lancamentoSelecionado;
     public float $valorRecebido = 0.0;
     public ?string $dataRecebimento = null;
-    public ?string $mteodoPagamento = null;
+    public ?string $metodoPagamento = null;
     public ?string $contaBancariaId = null;
     public ?string $contaBancariaNome = null;
     public ?string $observacoesRecebimento = null;
+    public ?Collection $metodos = null;
+
+    public function mount(Collection $metodos): void {
+        $this->metodos = $metodos;
+    }
 
     #[\Livewire\Attributes\On('abrir-modal-baixa-parcial')]
     public function abrirModal(string $lancamento_id): void
@@ -25,10 +31,12 @@ new class extends Component {
 
     public function baixar(): void
     {
+
         try {
-            $this->lancamentoSelecionado->baixarParcial($this->valorRecebido,  $this->dataRecebimento,  $this->contaBancariaId, $this->mteodoPagamento,  $this->observacoesRecebimento);
+            $this->lancamentoSelecionado->baixarParcial($this->valorRecebido, $this->dataRecebimento, $this->contaBancariaId, $this->metodoPagamento, $this->observacoesRecebimento);
         } catch (Exception $e) {
             $this->error('Baixa de lançamento', 'Erro ao baixar lançamento. =>' . $e->getMessage());
+            return;
         }
 
         $this->dispatch('fechar-modal-baixa-parcial');
@@ -62,7 +70,10 @@ new class extends Component {
             type="date"
         />
 
-        <x-input
+        <x-select
+            :options="$metodos"
+            option-label="nome"
+            placeholder="Selecione o método de pagamento"
             wire:model="metodoPagamento"
             label="Método de pagamento"
         />
@@ -82,7 +93,7 @@ new class extends Component {
     </div>
 
     <x-slot:actions>
-        <x-button wire:click="$toggle('showModal')" label="Cancelar" />
-        <x-button wire:click="baixar" label="Confirmar" class="btn-success" />
+        <x-button wire:click="$toggle('showModal')" label="Cancelar"/>
+        <x-button wire:click="baixar" label="Confirmar" class="btn-success"/>
     </x-slot:actions>
 </x-modal>

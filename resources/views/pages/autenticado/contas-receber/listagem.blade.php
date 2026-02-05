@@ -175,10 +175,10 @@ new class extends Component {
             <x-dropdown>
                 <x-menu-item label="Cancelar recebimento" icon="o-trash" />
                 <x-menu-item label="Editar recebimento" icon="o-pencil-square" />
-                <x-menu-item label="Receber" icon="o-currency-dollar" wire:click="$dispatch('abrir-modal-baixa-parcial', {lancamento_id: '{{ $lancamento->id }}'})"/>
+                <x-menu-item label="Receber" icon="o-currency-dollar" wire:click="$dispatch('abrir-modal-baixa-parcial', {lancamento_id: '{{ $lancamento->id }}'})" :disabled="$lancamento->estaPago()"/>
             </x-dropdown>
         @endscope
     </x-table>
 
-    <livewire:autenticado.lancamentos.baixas.modal-baixa-parcial />
+    <livewire:autenticado.lancamentos.baixas.modal-baixa-parcial :metodos="\App\Models\MetodoPagamento::query()->where('user_id', \Illuminate\Support\Facades\Auth::id())->get()"/>
 </div>

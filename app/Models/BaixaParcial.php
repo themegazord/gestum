@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BaixaParcial extends Model
@@ -19,7 +20,7 @@ class BaixaParcial extends Model
         'conta_bancaria_id',
         'valor_pago',
         'data_pagamento',
-        'metodo_pagamento',
+        'metodo_pagamento_id',
         'observacoes',
     ];
 
@@ -29,6 +30,10 @@ class BaixaParcial extends Model
 
     public function contaBancaria(): BelongsTo {
         return $this->belongsTo(ContaBancaria::class, 'conta_bancaria_id');
+    }
+
+    public function metodoPagamento(): BelongsTo {
+        return $this->belongsTo(MetodoPagamento::class, 'metodo_pagamento_id');
     }
 
     public function user(): BelongsTo {
