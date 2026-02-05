@@ -20,6 +20,9 @@ Route::prefix('cadastros')->group(function () {
         Route::livewire('/cadastro', 'pages::autenticado.cadastros.categorias.cadastro')->name('autenticado.cadastros.categorias.cadastro');
         Route::livewire('/{categoriaAtual}', 'pages::autenticado.cadastros.categorias.edicao')->name('autenticado.cadastros.categorias.edicao');
     });
+    Route::prefix('metodos-pagamentos')->group(function () {
+       Route::livewire('/', 'pages::autenticado.cadastros.metodos-pagamentos.listagem')->name('autenticado.cadastros.metodos-pagamentos.listagem');
+    });
 });
 Route::prefix('contas-receber')->group(function () {
     Route::livewire('/', 'pages::autenticado.contas-receber.listagem')->name('autenticado.contas-receber.listagem');
