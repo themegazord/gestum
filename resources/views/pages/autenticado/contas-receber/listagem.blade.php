@@ -50,6 +50,13 @@ new class extends Component {
             ->get();
     }
 
+    #[\Livewire\Attributes\On('fechar-modal-baixa-parcial')]
+    public function fechaModalBaixaParcial(): void {
+        $this->lancamentos();
+
+        $this->success('Baixa de lançamento', 'Baixa efetivada com sucesso');
+    }
+
     #[Computed]
     public function lancamentos(): \Illuminate\Pagination\LengthAwarePaginator
     {
