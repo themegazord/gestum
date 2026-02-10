@@ -13,39 +13,9 @@ new class extends Component {
     public function mount(): void
     {
         $this->contas = \App\Models\ContaBancaria::query()->where('user_id', \Illuminate\Support\Facades\Auth::id())->get();
-        $categorias = \App\Models\Categoria::query()
-            ->where('categorias.user_id', \Illuminate\Support\Facades\Auth::id())
-            ->where('categorias.tipo', \App\Enums\TipoCategoria::RECEITA)
-            ->get();
+        $categoria = app(\App\Models\Categoria::class);
 
-
-        $paisComFilhas = $categorias
-            ->whereNotNull('categoria_pai_id')
-            ->pluck('categoria_pai_id')
-            ->unique();
-
-        $categorias->each(function ($categoria) use (&$grouped, $categorias, $paisComFilhas) {
-            $paiId = $categoria->getAttribute('categoria_pai_id');
-
-            if ($paiId) {
-                // É uma filha - agrupa pelo nome do pai
-                $pai = $categorias->firstWhere('id', $paiId);
-                $paiNome = $pai ? $pai->getAttribute('nome') : 'Outros';
-
-                $grouped[$paiNome][] = [
-                    'id' => $categoria->getAttribute('id'),
-                    'name' => $categoria->getAttribute('nome')
-                ];
-            } elseif (!$paisComFilhas->contains($categoria->getAttribute('id'))) {
-                // É raiz e NÃO tem filhas - adiciona como grupo individual
-                $grouped[$categoria->getAttribute('nome')][] = [
-                    'id' => $categoria->getAttribute('id'),
-                    'name' => $categoria->getAttribute('nome')
-                ];
-            }
-        });
-
-        $this->categorias = $grouped;
+        $this->categorias = $categoria->getCategoriaAgrupadasPorTipo(\App\Enums\TipoCategoria::RECEITA);
 
         $this->lancamento->tipo = 'receita';
         $this->lancamento->status = 'pendente';
