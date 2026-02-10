@@ -65,7 +65,7 @@ new class extends Component {
                 \App\Models\Lancamento::query()->create($this->lancamento->all());
             });
 
-            $this->success('Cadastro de contas a receber', 'Lançamento cadastrado com sucesso');
+            $this->success('Cadastro de contas a receber', 'Lançamento cadastrado com sucesso', redirectTo: route('autenticado.contas-receber.listagem'));
         } catch (Exception $e) {
             $this->error('Cadastro de contas a receber', 'Erro ao cadastrar o lançamento, verifique com o administrador');
             \Illuminate\Support\Facades\Log::error('Erro ao cadastrar o lançamento', [

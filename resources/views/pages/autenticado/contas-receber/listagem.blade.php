@@ -174,8 +174,8 @@ new class extends Component {
 
         @scope('actions', $lancamento)
             <x-dropdown>
-                <x-menu-item label="Cancelar recebimento" icon="o-trash" />
-                <x-menu-item label="Editar recebimento" icon="o-pencil-square" />
+                <x-menu-item label="Cancelar recebimento" icon="o-trash" wire:click="$dispatch('abrir-modal-confirmacao-remocao-lancamento', { lancamento_id: '{{ $lancamento->id }}' })"/>
+                <x-menu-item label="Editar recebimento" icon="o-pencil-square" :disabled="$lancamento->contemBaixas()"/>
                 <x-menu-item label="Baixas" icon="o-document-duplicate" wire:click="$dispatch('abrir-modal-listagem-baixas', {lancamento_id: '{{ $lancamento->id }}'})"  :disabled="!$lancamento->contemBaixas()"/>
                 <x-menu-item label="Receber" icon="o-currency-dollar" wire:click="$dispatch('abrir-modal-baixa-parcial', {lancamento_id: '{{ $lancamento->id }}'})" :disabled="$lancamento->estaPago()"/>
             </x-dropdown>
@@ -186,4 +186,5 @@ new class extends Component {
     <livewire:autenticado.lancamentos.baixas.modal-listagem-baixas />
     <livewire:autenticado.lancamentos.baixas.modal-confirmacao-estornar-baixa />
     <livewire:autenticado.lancamentos.baixas.modal-visualizacao-baixa />
+    <livewire:autenticado.lancamentos.modal-confirmacao-remocao-lancamento />
 </div>
