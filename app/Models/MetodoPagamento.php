@@ -27,4 +27,11 @@ class MetodoPagamento extends Model
     public function baixasParciais(): HasMany {
         return $this->hasMany(BaixaParcial::class, 'metodo_pagamento_id');
     }
+
+    public function badgeMetodoPagamento(): string {
+        return \Blade::render(
+            "<x-badge :value='\$nome' class='badge' style='background-color: {{ \$cor }}'/>",
+            ['nome' => $this->nome, 'cor' => $this->cor]
+        );
+    }
 }

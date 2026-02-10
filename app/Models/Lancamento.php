@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 class Lancamento extends Model
 {
     use HasUuids, SoftDeletes;
+
     protected $fillable = [
         'user_id',
         'categoria_id',
@@ -37,15 +38,18 @@ class Lancamento extends Model
         'status' => StatusLancamento::class,
     ];
 
-    public function categoria(): BelongsTo {
+    public function categoria(): BelongsTo
+    {
         return $this->belongsTo(Categoria::class, 'categoria_id');
     }
 
-    public function contaBancaria(): BelongsTo {
+    public function contaBancaria(): BelongsTo
+    {
         return $this->belongsTo(ContaBancaria::class, 'conta_bancaria_id');
     }
 
-    public function baixasParciais(): HasMany {
+    public function baixasParciais(): HasMany
+    {
         return $this->hasMany(BaixaParcial::class, 'lancamento_id');
     }
 
@@ -53,12 +57,13 @@ class Lancamento extends Model
      * @throws \Exception
      */
     public function baixarParcial(
-        float $valorPagamento,
+        float   $valorPagamento,
         ?string $dataPagamento = null,
         ?string $contaBancariaId = null,
         ?string $metodoPagamento = null,
         ?string $observacoes = null
-    ): BaixaParcial {
+    ): BaixaParcial
+    {
         return DB::transaction(function () use ($valorPagamento, $dataPagamento, $contaBancariaId, $metodoPagamento, $observacoes) {
             $dataPagamento = $dataPagamento ?? now();
             $contaBancariaId = $contaBancariaId ?? $this->conta_bancaria_id;
@@ -78,7 +83,7 @@ class Lancamento extends Model
                 'conta_bancaria_id' => $contaBancariaId,
                 'valor_pago' => $valorPagamento,
                 'data_pagamento' => $dataPagamento,
-                'metodo_pagamento' => $metodoPagamento,
+                'metodo_pagamento_id' => $metodoPagamento,
                 'observacoes' => $observacoes,
             ]);
 
@@ -150,9 +155,10 @@ class Lancamento extends Model
         // Deletar baixa
         $baixa->delete();
     }
+
     public function valorRestante(): float
     {
-        return (float) ($this->valor - $this->valor_pago);
+        return (float)($this->valor - $this->valor_pago);
     }
 
     public function percentualPago(): float
@@ -180,5 +186,10 @@ class Lancamento extends Model
     {
         return $this->estaPendente() &&
             $this->data_vencimento < now();
+    }
+
+    public function contemBaixas(): bool
+    {
+        return $this->baixasParciais()->exists();
     }
 }

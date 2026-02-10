@@ -33,6 +33,7 @@ new class extends Component {
     ];
 
     #[Computed]
+    #[\Livewire\Attributes\On('recarrega-lancamentos')]
     public function categorias(): Collection
     {
         return \App\Models\Categoria::query()
@@ -175,10 +176,14 @@ new class extends Component {
             <x-dropdown>
                 <x-menu-item label="Cancelar recebimento" icon="o-trash" />
                 <x-menu-item label="Editar recebimento" icon="o-pencil-square" />
+                <x-menu-item label="Baixas" icon="o-document-duplicate" wire:click="$dispatch('abrir-modal-listagem-baixas', {lancamento_id: '{{ $lancamento->id }}'})"  :disabled="!$lancamento->contemBaixas()"/>
                 <x-menu-item label="Receber" icon="o-currency-dollar" wire:click="$dispatch('abrir-modal-baixa-parcial', {lancamento_id: '{{ $lancamento->id }}'})" :disabled="$lancamento->estaPago()"/>
             </x-dropdown>
         @endscope
     </x-table>
 
     <livewire:autenticado.lancamentos.baixas.modal-baixa-parcial :metodos="\App\Models\MetodoPagamento::query()->where('user_id', \Illuminate\Support\Facades\Auth::id())->get()"/>
+    <livewire:autenticado.lancamentos.baixas.modal-listagem-baixas />
+    <livewire:autenticado.lancamentos.baixas.modal-confirmacao-estornar-baixa />
+    <livewire:autenticado.lancamentos.baixas.modal-visualizacao-baixa />
 </div>
