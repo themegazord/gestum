@@ -35,7 +35,7 @@ new class extends Component {
             DB::transaction(function () {
                 $this->lancamentoAtual->update($this->lancamento->all());
             });
-            $this->success('Atualização de lançamento', 'Lançamento atualizado com sucesso', redirectTo: route('autenticado.contas-receber.listagem'));
+            $this->success('Atualização de lançamento', 'Lançamento atualizado com sucesso', redirectTo: route('autenticado.contas-receber.recebimentos.listagem'));
         } catch (Exception $e) {
             $this->error('Atualização de lançamento', 'Erro ao atualizar o lançamento, verifique com o administrador');
             \Illuminate\Support\Facades\Log::error('Erro ao atualizar o lançamento', [

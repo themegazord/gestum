@@ -92,7 +92,7 @@ new class extends Component {
               subtitle="Visualize e gerencie os valores que você tem a receber, acompanhando vencimentos e status de pagamento">
         <x-slot:actions>
             <x-button label="Novo recebimento" icon="o-plus" class="btn-success"
-                      link="{{ route('autenticado.contas-receber.cadastro') }}"/>
+                      link="{{ route('autenticado.contas-receber.recebimentos.cadastro') }}"/>
         </x-slot:actions>
     </x-header>
 
@@ -175,7 +175,7 @@ new class extends Component {
         @scope('actions', $lancamento)
             <x-dropdown>
                 <x-menu-item label="Cancelar recebimento" icon="o-trash" wire:click="$dispatch('abrir-modal-confirmacao-remocao-lancamento', { lancamento_id: '{{ $lancamento->id }}' })"/>
-                <x-menu-item label="Editar recebimento" icon="o-pencil-square" :disabled="$lancamento->contemBaixas()" link="{{ route('autenticado.contas-receber.edicao', ['lancamentoAtual' => $lancamento->getAttribute('id')]) }}"/>
+                <x-menu-item label="Editar recebimento" icon="o-pencil-square" :disabled="$lancamento->contemBaixas()" link="{{ route('autenticado.contas-receber.recebimentos.edicao', ['lancamentoAtual' => $lancamento->getAttribute('id')]) }}"/>
                 <x-menu-item label="Baixas" icon="o-document-duplicate" wire:click="$dispatch('abrir-modal-listagem-baixas', {lancamento_id: '{{ $lancamento->id }}'})"  :disabled="!$lancamento->contemBaixas()"/>
                 <x-menu-item label="Receber" icon="o-currency-dollar" wire:click="$dispatch('abrir-modal-baixa-parcial', {lancamento_id: '{{ $lancamento->id }}'})" :disabled="$lancamento->estaPago()"/>
             </x-dropdown>

@@ -29,7 +29,7 @@
     </div>
     <x-textarea label="Observações" rows="3" wire:model="lancamento.observacoes"/>
     <x-slot:actions>
-        <x-button label="Voltar" icon="o-arrow-left" class="btn-error" link="{{ route('autenticado.contas-receber.listagem') }}"/>
+        <x-button label="Voltar" icon="o-arrow-left" class="btn-error" link="{{ route('autenticado.contas-receber.recebimentos.listagem') }}"/>
         <x-button label="{{ $submitLabel }}" icon="o-plus" class="btn-success" type="submit" spinner="{{ $submitType }}"/>
     </x-slot:actions>
 </x-form>
