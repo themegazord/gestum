@@ -1,4 +1,5 @@
 @props([
+    'acao' => null,
     'contas',
     'categorias',
     'submitLabel' => 'Salvar',
@@ -24,12 +25,12 @@
     </div>
 
     <div class="flex flex-col md:grid md:grid-cols-2 gap-4">
-        <x-input  label="Valor recebido" wire:model="lancamento.valor_pago" prefix="R$" locale="pt-BR" money readonly />
+        <x-input  label="Valor {{ $acao }}" wire:model="lancamento.valor_pago" prefix="R$" locale="pt-BR" money readonly />
         <x-datepicker label="Data de Pagamento" wire:model="lancamento.data_pagamento" icon="o-calendar" :config="$configuracaoDatePicker" readonly />
     </div>
     <x-textarea label="Observações" rows="3" wire:model="lancamento.observacoes"/>
     <x-slot:actions>
-        <x-button label="Voltar" icon="o-arrow-left" class="btn-error" link="{{ route('autenticado.contas-receber.recebimentos.listagem') }}"/>
+        <x-button label="Voltar" icon="o-arrow-left" class="btn-error" link="{{ route('autenticado.lancamentos.recebimentos.listagem') }}"/>
         <x-button label="{{ $submitLabel }}" icon="o-plus" class="btn-success" type="submit" spinner="{{ $submitType }}"/>
     </x-slot:actions>
 </x-form>

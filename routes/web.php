@@ -24,11 +24,16 @@ Route::prefix('cadastros')->group(function () {
        Route::livewire('/', 'pages::autenticado.cadastros.metodos-pagamentos.listagem')->name('autenticado.cadastros.metodos-pagamentos.listagem');
     });
 });
-Route::prefix('contas-receber')->group(function () {
+Route::prefix('lancamentos')->group(function () {
     Route::prefix('recebimentos')->group(function () {
-        Route::livewire('/', 'pages::autenticado.contas-receber.listagem')->name('autenticado.contas-receber.recebimentos.listagem');
-        Route::livewire('/cadastro', 'pages::autenticado.contas-receber.cadastro')->name('autenticado.contas-receber.recebimentos.cadastro');
-        Route::livewire('/{lancamentoAtual}', 'pages::autenticado.contas-receber.edicao')->name('autenticado.contas-receber.recebimentos.edicao');
+        Route::livewire('/', 'pages::autenticado.lancamentos.recebimentos.listagem')->name('autenticado.lancamentos.recebimentos.listagem');
+        Route::livewire('/cadastro', 'pages::autenticado.lancamentos.recebimentos.cadastro')->name('autenticado.lancamentos.recebimentos.cadastro');
+        Route::livewire('/{lancamentoAtual}', 'pages::autenticado.lancamentos.recebimentos.edicao')->name('autenticado.lancamentos.recebimentos.edicao');
+    });
+    Route::prefix('pagamentos')->group(function () {
+        Route::livewire('/', 'pages::autenticado.lancamentos.pagamentos.listagem')->name('autenticado.lancamentos.pagamentos.listagem');
+        Route::livewire('/cadastro', 'pages::autenticado.lancamentos.pagamentos.cadastro')->name('autenticado.lancamentos.pagamentos.cadastro');
+        Route::livewire('/{lancamentoAtual}', 'pages::autenticado.lancamentos.pagamentos.edicao')->name('autenticado.lancamentos.pagamentos.edicao');
     });
 });
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {

@@ -35,7 +35,7 @@ new class extends Component {
             DB::transaction(function () {
                 $this->lancamentoAtual->update($this->lancamento->all());
             });
-            $this->success('Atualização de lançamento', 'Lançamento atualizado com sucesso', redirectTo: route('autenticado.contas-receber.recebimentos.listagem'));
+            $this->success('Atualização de lançamento', 'Lançamento atualizado com sucesso', redirectTo: route('autenticado.lancamentos.recebimentos.listagem'));
         } catch (Exception $e) {
             $this->error('Atualização de lançamento', 'Erro ao atualizar o lançamento, verifique com o administrador');
             \Illuminate\Support\Facades\Log::error('Erro ao atualizar o lançamento', [
@@ -52,5 +52,5 @@ new class extends Component {
               subtitle="Edite os valores que você tem a receber, definindo vencimentos, categorias e formas de pagamento"/>
 
     <x-autenticado.lancamentos.form-lancamento :contas="$contas" :categorias="$categorias" submitLabel="Editar"
-                                               submitType="editar"/>
+                                               submitType="editar" acao="recebido"/>
 </div>

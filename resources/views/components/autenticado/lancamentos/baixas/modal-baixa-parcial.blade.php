@@ -15,9 +15,11 @@ new class extends Component {
     public ?string $contaBancariaNome = null;
     public ?string $observacoesRecebimento = null;
     public ?Collection $metodos = null;
+    public string $acao = '';
 
-    public function mount(Collection $metodos): void {
+    public function mount(Collection $metodos, string $acao): void {
         $this->metodos = $metodos;
+        $this->acao = $acao;
     }
 
     #[\Livewire\Attributes\On('abrir-modal-baixa-parcial')]
@@ -66,7 +68,7 @@ new class extends Component {
 
         <x-input
             wire:model="dataRecebimento"
-            label="Data do recebimento"
+            label="Data do {{ $this->acao }}"
             type="date"
         />
 
@@ -87,7 +89,7 @@ new class extends Component {
         <x-textarea
             wire:model="observacoesRecebimento"
             label="Observações"
-            placeholder="Observações sobre o recebimento..."
+            placeholder="Observações sobre o {{ $this->acao }}..."
             rows="2"
         />
     </div>

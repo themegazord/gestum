@@ -15,16 +15,16 @@ new class extends Component {
         $this->contas = \App\Models\ContaBancaria::query()->where('user_id', \Illuminate\Support\Facades\Auth::id())->get();
         $categoria = app(\App\Models\Categoria::class);
 
-        $this->categorias = $categoria->getCategoriaAgrupadasPorTipo(\App\Enums\TipoCategoria::RECEITA);
+        $this->categorias = $categoria->getCategoriaAgrupadasPorTipo(\App\Enums\TipoCategoria::DESPESA);
 
-        $this->lancamento->tipo = 'receita';
+        $this->lancamento->tipo = 'despesa';
         $this->lancamento->status = 'pendente';
         $this->lancamento->user_id = \Illuminate\Support\Facades\Auth::id();
     }
 
     public function render()
     {
-        return $this->view()->layout('layouts.authenticated')->title('Cadastro - Contas a Receber');
+        return $this->view()->layout('layouts.authenticated')->title('Cadastro - Contas a Pagar');
     }
 
     public function cadastrar(): void
@@ -35,9 +35,9 @@ new class extends Component {
                 \App\Models\Lancamento::query()->create($this->lancamento->all());
             });
 
-            $this->success('Cadastro de contas a receber', 'Lançamento cadastrado com sucesso', redirectTo: route('autenticado.contas-receber.recebimentos.listagem'));
+            $this->success('Cadastro de contas a pagar', 'Lançamento cadastrado com sucesso', redirectTo: route('autenticado.lancamentos.pagamentos.listagem'));
         } catch (Exception $e) {
-            $this->error('Cadastro de contas a receber', 'Erro ao cadastrar o lançamento, verifique com o administrador');
+            $this->error('Cadastro de contas a pagar', 'Erro ao cadastrar o lançamento, verifique com o administrador');
             \Illuminate\Support\Facades\Log::error('Erro ao cadastrar o lançamento', [
                 'error' => $e->getMessage(),
                 'data' => $this->lancamento->all()
@@ -50,8 +50,8 @@ new class extends Component {
 ?>
 
 <div class="container">
-    <x-header title="Cadastro de contas a receber"
-              subtitle="Registre os valores que você tem a receber, definindo vencimentos, categorias e formas de pagamento"/>
+    <x-header title="Cadastro de contas a pagar"
+              subtitle="Registre os valores que você tem a pagar, definindo vencimentos, categorias e formas de pagamento"/>
 
-    <x-autenticado.lancamentos.form-lancamento :contas="$contas" :categorias="$categorias" submitLabel="Cadastrar" submitType="cadastrar" />
+    <x-autenticado.lancamentos.form-lancamento :contas="$contas" :categorias="$categorias" submitLabel="Cadastrar" submitType="cadastrar" acao="pago"/>
 </div>

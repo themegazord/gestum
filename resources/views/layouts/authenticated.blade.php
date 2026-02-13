@@ -43,15 +43,10 @@
             @endif
 
             <x-menu-item title="Dashboard" icon="o-sparkles" link="/dashboard"/>
-            <x-menu-sub title="Contas a receber" icon="o-arrow-trending-up">
+            <x-menu-sub title="Lançamentos" icon="o-arrow-trending-up">
                 <x-menu-item title="Recebimentos" icon="o-banknotes"
-                             link="{{ route('autenticado.contas-receber.recebimentos.listagem') }}"/>
-                <x-menu-item title="Baixas" icon="o-check-circle" link="####"/>
-            </x-menu-sub>
-
-            <x-menu-sub title="Contas a pagar" icon="o-arrow-trending-down">
-                <x-menu-item title="Pagamentos" icon="o-credit-card" link="####"/>
-                <x-menu-item title="Baixas" icon="o-clipboard-document-check" link="####"/>
+                             link="{{ route('autenticado.lancamentos.recebimentos.listagem') }}"/>
+                <x-menu-item title="Pagamentos" icon="o-credit-card" link="{{ route('autenticado.lancamentos.pagamentos.listagem') }}"/>
             </x-menu-sub>
 
             <x-menu-sub title="Recorrências" icon="o-arrow-path">
