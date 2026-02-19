@@ -39,6 +39,9 @@ Route::prefix('lancamentos')->group(function () {
         Route::livewire('/cadastro', 'pages::autenticado.lancamentos.pagamentos.cadastro')->name('autenticado.lancamentos.pagamentos.cadastro');
         Route::livewire('/{lancamentoAtual}', 'pages::autenticado.lancamentos.pagamentos.edicao')->name('autenticado.lancamentos.pagamentos.edicao');
     });
+    Route::prefix('emprestimos')->group(function () {
+        Route::livewire('/', 'pages::autenticado.lancamentos.emprestimos.listagem')->name('autenticado.lancamentos.emprestimos.listagem');
+    });
 });
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {
     Route::livewire('/solicitacoes-bancos', 'pages::autenticado.admin.solicitacoes-bancos')->name('autenticado.admin.solicitacoes-bancos');

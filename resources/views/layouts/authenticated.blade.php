@@ -8,6 +8,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/robsontenorio/mary@2.7.0/libs/currency.js"></script>
+    {{-- Flatpickr  --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+    <script>
+        flatpickr.localize(flatpickr.l10ns.pt);
+    </script>
 </head>
 
 <body>
@@ -47,6 +55,8 @@
                 <x-menu-item title="Recebimentos" icon="o-banknotes"
                              link="{{ route('autenticado.lancamentos.recebimentos.listagem') }}"/>
                 <x-menu-item title="Pagamentos" icon="o-credit-card" link="{{ route('autenticado.lancamentos.pagamentos.listagem') }}"/>
+                <x-menu-separator />
+                <x-menu-item title="Empréstimos" icon="o-receipt-percent" link="{{ route('autenticado.lancamentos.emprestimos.listagem') }}"/>
             </x-menu-sub>
 
             <x-menu-sub title="Recorrências" icon="o-arrow-path">
