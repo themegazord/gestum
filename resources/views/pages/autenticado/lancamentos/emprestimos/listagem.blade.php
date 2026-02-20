@@ -37,15 +37,6 @@ new class extends Component {
     ];
 
     #[Computed]
-    public function categorias(): Collection
-    {
-        return \App\Models\Categoria::query()
-            ->where('user_id', \Illuminate\Support\Facades\Auth::id())
-            ->get()
-            ->filter(fn ($categoria) => !$categoria->ehCategoriaPai());
-    }
-
-    #[Computed]
     public function contasBancarias(): Collection
     {
         return \App\Models\ContaBancaria::query()
@@ -54,6 +45,7 @@ new class extends Component {
     }
 
     #[Computed]
+    #[\Livewire\Attributes\On('fechar-modal-remocao-emprestimo')]
     public function emprestimos(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return \App\Models\Emprestimo::query()
@@ -66,7 +58,7 @@ new class extends Component {
             ->when($this->categoria_id, fn ($q) => $q->where('categoria_id', $this->categoria_id))
             ->when($this->conta_bancaria_id, fn ($q) => $q->where('conta_bancaria_id', $this->conta_bancaria_id))
             ->latest()
-            ->with('categoria', 'contaBancaria')
+            ->with('contaBancaria')
             ->paginate();
     }
 
@@ -112,7 +104,7 @@ new class extends Component {
         $configDatapicker = ['mode' => 'range', 'dateFormat' => 'Y-m-d', 'altFormat' => 'd/m/Y', 'altInput' => true, 'conjunction' => ' , '];
     @endphp
 
-    <div class="flex flex-col md:grid md:grid-cols-6 gap-4">
+    <div class="flex flex-col md:grid md:grid-cols-5 gap-4">
         <x-input
             wire:model.live.debounce.300ms="descricao"
             label="Descrição"
@@ -139,15 +131,6 @@ new class extends Component {
             label="Status"
             placeholder="Todos"
             :options="\App\Enums\StatusEmprestimo::options()"
-        />
-
-        <x-select
-            wire:model.live="categoria_id"
-            label="Categoria"
-            placeholder="Todas"
-            :options="$this->categorias"
-            option-value="id"
-            option-label="nome"
         />
 
         <x-select
@@ -181,6 +164,11 @@ new class extends Component {
         @scope('cell_status', $emprestimo)
         <x-badge :value="$emprestimo->status->label()" :class="$emprestimo->status->color()"/>
         @endscope
+
+        @scope('actions', $emprestimo)
+        <x-button class="btn-error" icon="o-trash" wire:click="$dispatch('abrir-modal-confirmacao-remocao-emprestimo', { 'emprestimo_id': '{{ $emprestimo->id }}' })"/>
+        @endscope
     </x-table>
 
+    <livewire:autenticado.lancamentos.emprestimos.modal-confirmacao-remocao-emprestimo />
 </div>
