@@ -15,14 +15,16 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('conta_bancaria_id')->constrained('conta_bancaria')->cascadeOnDelete();
-            $table->foreignUuid('categoria_id')->constrained('categorias')->cascadeOnDelete();
+            $table->foreignUuid('categoria_principal_id')->constrained('categorias')->cascadeOnDelete();
+            $table->foreignUuid('categoria_retorno_id')->constrained('categorias')->cascadeOnDelete();
             $table->enum('tipo', ['tomado', 'concedido']);
             $table->string('descricao');
-            $table->double('valor');
+            $table->double('valor_principal');
+            $table->double('valor_retorno');
             $table->date('data_emprestimo');
             $table->date('data_vencimento');
             $table->enum('status', ['pendente', 'pago']);
-            $table->text('observacao');
+            $table->text('observacao')->nullable();
 
             $table->timestamps();
         });

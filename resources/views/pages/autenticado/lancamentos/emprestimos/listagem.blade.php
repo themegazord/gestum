@@ -28,8 +28,8 @@ new class extends Component {
     public array $headers = [
         ['key' => 'descricao', 'label' => 'Descrição'],
         ['key' => 'tipo', 'label' => 'Tipo'],
-        ['key' => 'valor', 'label' => 'Valor', 'format' => ['currency', '2,.', 'R$ ']],
-        ['key' => 'categoria_id', 'label' => 'Categoria'],
+        ['key' => 'valor_principal', 'label' => 'Valor principal', 'format' => ['currency', '2,.', 'R$ ']],
+        ['key' => 'valor_retorno', 'label' => 'Valor de retorno', 'format' => ['currency', '2,.', 'R$ ']],
         ['key' => 'conta_bancaria_id', 'label' => 'Conta bancária'],
         ['key' => 'status', 'label' => 'Status'],
         ['key' => 'data_emprestimo', 'label' => 'Data do empréstimo', 'format' => ['date', 'd/m/Y']],
@@ -104,7 +104,7 @@ new class extends Component {
     <x-header title="Listagem de empréstimos"
               subtitle="Visualize e gerencie os empréstimos tomados e concedidos">
         <x-slot:actions>
-            <x-button label="Novo empréstimo" icon="o-plus" class="btn-success" />
+            <x-button label="Novo empréstimo" icon="o-plus" class="btn-success" link="{{ route('autenticado.lancamentos.emprestimos.cadastro') }}"/>
         </x-slot:actions>
     </x-header>
 
@@ -172,14 +172,6 @@ new class extends Component {
     <x-table :headers="$headers" :rows="$this->emprestimos" empty-text="Nenhum empréstimo cadastrado." show-empty-text with-pagination>
         @scope('cell_tipo', $emprestimo)
         <x-badge :value="$emprestimo->tipo->label()" :class="$emprestimo->tipo->color()"/>
-        @endscope
-
-        @scope('cell_categoria_id', $emprestimo)
-        <x-badge
-            :value="$emprestimo->categoria->nome"
-            class="badge"
-            style="background-color: {{ $emprestimo->categoria->cor }}"
-        />
         @endscope
 
         @scope('cell_conta_bancaria_id', $emprestimo)

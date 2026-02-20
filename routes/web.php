@@ -41,6 +41,7 @@ Route::prefix('lancamentos')->group(function () {
     });
     Route::prefix('emprestimos')->group(function () {
         Route::livewire('/', 'pages::autenticado.lancamentos.emprestimos.listagem')->name('autenticado.lancamentos.emprestimos.listagem');
+        Route::livewire('/cadastro', 'pages::autenticado.lancamentos.emprestimos.cadastro')->name('autenticado.lancamentos.emprestimos.cadastro');
     });
 });
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {

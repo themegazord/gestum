@@ -22,6 +22,7 @@ class Lancamento extends Model
         'conta_bancaria_id',
         'fatura_id',
         'recorrencia_id',
+        'emprestimo_id',
         'tipo',
         'descricao',
         'valor',
@@ -41,6 +42,11 @@ class Lancamento extends Model
     public function categoria(): BelongsTo
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+
+    public function emprestimo(): BelongsTo
+    {
+        return $this->belongsTo(Emprestimo::class, 'emprestimo_id');
     }
 
     public function contaBancaria(): BelongsTo
