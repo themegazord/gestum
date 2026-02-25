@@ -44,6 +44,11 @@ Route::prefix('lancamentos')->group(function () {
         Route::livewire('/cadastro', 'pages::autenticado.lancamentos.emprestimos.cadastro')->name('autenticado.lancamentos.emprestimos.cadastro');
     });
 });
+Route::prefix('recorrencias')->group(function () {
+    Route::prefix('receita')->group(function () {
+        Route::livewire('/', 'pages::autenticado.recorrencias.receita.listagem')->name('autenticado.recorrencias.receita.listagem');
+        });
+});
 Route::prefix('admin')->middleware('can:is-admin')->group(function () {
     Route::livewire('/solicitacoes-bancos', 'pages::autenticado.admin.solicitacoes-bancos')->name('autenticado.admin.solicitacoes-bancos');
 });

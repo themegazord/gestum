@@ -60,7 +60,7 @@
             </x-menu-sub>
 
             <x-menu-sub title="Recorrências" icon="o-arrow-path">
-                <x-menu-item title="Receitas fixas" icon="o-plus-circle" link="####"/>
+                <x-menu-item title="Receitas fixas" icon="o-plus-circle" link="{{ route('autenticado.recorrencias.receita.listagem') }}" />
                 <x-menu-item title="Despesas fixas" icon="o-minus-circle" link="####"/>
             </x-menu-sub>
 
